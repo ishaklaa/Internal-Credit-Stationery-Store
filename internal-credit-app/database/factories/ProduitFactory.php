@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Departement;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,6 +19,11 @@ class ProduitFactory extends Factory
     {
         return [
             //
+            'title' => fake()->name(),
+            //'departement_id'=> Departement::all()->random()->id,
+            'quantity' => fake()->numberBetween(0 , 100),
+            'status' => $this->faker->randomElement (['nonpremium','premium']),
+            
         ];
     }
 }

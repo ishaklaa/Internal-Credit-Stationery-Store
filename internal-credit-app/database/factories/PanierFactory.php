@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Commande;
+use App\Models\panier;
+use App\Models\Produit;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,6 +21,8 @@ class PanierFactory extends Factory
     {
         return [
             //
+           'commande_id'=> Commande::all()->random()->id,
+           'produit_id'=> Produit::all()->random()->id,
         ];
     }
 }

@@ -18,6 +18,7 @@ class DepartementFactory extends Factory
     {
         return [
             //
+            'title' =>$this->faker->randomElement (['it','sport','elect']),
         ];
     }
 }

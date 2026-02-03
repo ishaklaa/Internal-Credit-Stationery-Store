@@ -17,6 +17,7 @@ class CommandeFactory extends Factory
     public function definition(): array
     {
         return [
+            'quantity' => fake()->numberBetween(0 , 100)
             //
         ];
     }
