@@ -1,0 +1,25 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Produit extends Model
+{
+    /** @use HasFactory<\Database\Factories\ProduitFactory> */
+    use HasFactory;
+    
+   
+    public function departement(){
+        return $this->belongsTo(Departement::class);
+    }
+    public function commandes(){
+        return $this->belongsToMany(Commande::class);
+    }
+    protected $fillable =[
+        'title',
+        'quantity',
+        'status',
+    ];
+}

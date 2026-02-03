@@ -4,14 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Employe extends Model
+class manager extends Model
 {
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-    public function commmandes(){
-        return $this->hasMany(Commande::class);
     }
      protected $fillable =[
         'user_id',

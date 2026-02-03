@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Pest\Plugin\Manager;
 
 class User extends Authenticatable
 {
@@ -22,11 +23,21 @@ class User extends Authenticatable
         'email',
         'password',
     ];
-   public function employe()
+   public function Employe()
     {
         return $this->hasOne(Employe::class);
     }
-
+    public function admin()
+    {
+        return $this->hasOne(Admin::class);
+    }
+    public function manager()
+    {
+        return $this->hasOne(Manager::class);
+    }
+   public function Roles(){
+    return $this->hasMany(Role::class);
+   }
     /**
      * The attributes that should be hidden for serialization.
      *
