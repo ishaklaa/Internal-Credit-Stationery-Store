@@ -18,6 +18,7 @@ class RoleFactory extends Factory
     {
         return [
             //
+            'name'=>$this->faker->randomElement(['Admin','employe','Manager']),
         ];
     }
 }
