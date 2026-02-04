@@ -13,5 +13,6 @@ class manager extends Model
     }
      protected $fillable =[
         'user_id',
+        'token',
     ];
 }
