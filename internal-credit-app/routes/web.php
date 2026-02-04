@@ -7,4 +7,6 @@ use PhpParser\Node\Name;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/employedashboard',[EmployeController::class , 'index'])->name('index');
+//employeRoutes
+Route::resource ('employe', EmployeController::class);
+//employeRoutesEnd
