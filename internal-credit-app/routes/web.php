@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+    (new \App\Jobs\ProcessUserTokens ())->handle();
 });
 
 Route::get('/dashboard', function () {
