@@ -9,12 +9,13 @@ class Commande extends Model
 {
     /** @use HasFactory<\Database\Factories\CommandeFactory> */
     use HasFactory;
-    protected $fillable =['quantity',];
-    public function employe(){
+    protected $fillable = ['employeId'];
+    public function employe()
+    {
         return $this->belongsTo(Employe::class);
     }
-    public function produits(){
+    public function produits()
+    {
         return $this->hasMany(Produit::class);
     }
-    
 }
