@@ -1,17 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Http\Controllers\TokensController;
-use App\Models\Employe;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-class EmployeController extends Controller
+class TokensController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public static function tokensReloader()
+       public static function tokensReloader()
     {
         $userId = Auth::id() ?? 1;
         $userRole = Auth::user()->role_id ?? 3;
@@ -41,11 +40,7 @@ class EmployeController extends Controller
     }
     public function index()
     {
-      $userTokens =  TokensController::tokensReloader();
-        $employeId = Auth::id() ?? 1;
-        //just with fake data 
-        $employe = Employe::find($employeId);
-        return view('employe.index', compact('employe'));
+        //
     }
 
     /**
