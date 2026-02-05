@@ -21,9 +21,10 @@ class ProduitFactory extends Factory
             //
             'title' => fake()->name(),
             //'departement_id'=> Departement::all()->random()->id,
-            'quantity' => fake()->numberBetween(0 , 100),
-            'status' => $this->faker->randomElement (['nonpremium','premium']),
-            
+            'quantity' => fake()->numberBetween(0, 100),
+            'status' => $this->faker->randomElement(['nonpremium', 'premium']),
+            'prix' => fake()->randomFloat(2, 5, 1000)
+
         ];
     }
 }
