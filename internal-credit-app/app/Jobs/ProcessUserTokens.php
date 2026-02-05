@@ -12,7 +12,7 @@ class ProcessUserTokens implements ShouldQueue
 {
      use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
     use Queueable;
-
+     
     /**
      * Create a new job instance.
      */
@@ -24,7 +24,7 @@ class ProcessUserTokens implements ShouldQueue
     /**
      * Execute the job.
      */
-    public function handle(): void
+    public function  handle(): void
     {
         //
             DB::table("employes")
