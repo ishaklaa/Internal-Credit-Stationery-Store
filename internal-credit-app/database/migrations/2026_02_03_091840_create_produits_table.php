@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('title');
             $table->integer('quantity');
             $table->string('status');
+            $table->float('prix');
         });
     }
 

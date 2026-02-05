@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Admin extends Model
 {
-        use HasFactory;
+    use HasFactory;
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-    protected $fillable =[
+    protected $fillable = [
         'user_id',
     ];
 }
