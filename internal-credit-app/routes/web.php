@@ -32,3 +32,5 @@ Route::post('/addCommand', [CommandeController::class, 'addCommand'])->name('add
 //employeRoutes
 Route::resource('employe', EmployeController::class);
 //employeRoutesEnd
+
+
