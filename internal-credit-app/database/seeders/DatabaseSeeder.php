@@ -2,15 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Admin;
-use App\Models\Commande;
-use App\Models\Departement;
-use App\Models\Employe;
-use App\Models\manager;
-use App\Models\panier;
-use App\Models\Produit;
-use App\Models\Role;
 use App\Models\User;
+use Database\Factories\UserFactory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -23,8 +16,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-             
-       User::factory(10)->create();
+
+        $this->call([
+            CommandeSeeder::class,
+            DepartementSeeder::class,
+
+            ProduitSeeder::class,
+            RoleSeeder::class,
+        ]);
+        User::factory(10)->create();
 
         // User::factory()->create([
         //     'name' => 'Test User',
