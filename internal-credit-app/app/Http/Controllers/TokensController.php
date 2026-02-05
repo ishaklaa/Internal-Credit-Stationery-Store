@@ -29,7 +29,7 @@ class TokensController extends Controller
         $loginDateConverted = strtotime($loginDate);
         $timeDeff = $time - $loginDateConverted;
         if ($timeDeff  >= 2674811 ||  $timeDeff <= 2585650.633333333) {
-            DB::table($table)->where('id',$userId)
+            DB::table($table)
                 ->update([
                     'token' => 1000,
                     'updated_at' =>  $currentTime
