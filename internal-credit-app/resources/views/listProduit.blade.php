@@ -239,9 +239,11 @@
                 <div class="cart-total">
                     Total: ${{ $total }}
                 </div>
+                <form action="{{ route('add.Command') }}" method="post">
+                    @csrf
+                    <button class="checkout-btn" type="submit">Checkout</button>
+                </form>
 
-                <button class="checkout-btn">Checkout</button>
-            </div>
         @endif
 
     </div>
