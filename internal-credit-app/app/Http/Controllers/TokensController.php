@@ -21,8 +21,6 @@ class TokensController extends Controller
         $time = strtotime($currentTime);
         $loginDateConverted = strtotime($loginDate);
         $timeDeff = $time - $loginDateConverted;
-        var_dump ($userLogin);
-        exit ();
         if ($timeDeff  >= 2674811 ||  $timeDeff <= 2585650.633333333) {
             DB::table("employes")
                 ->update([
