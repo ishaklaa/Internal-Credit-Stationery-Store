@@ -14,3 +14,6 @@ Route::get('/employedashboard', [EmployeController::class, 'index'])->name('inde
 Route::get('/index', [ProduitController::class, 'index'])->name('list.produits');
 Route::post('/addCarte/{product}', [CommandesInfoController::class, 'addCart'])->name('add.cart');
 Route::get('/removeCart/{id}', [CommandesInfoController::class, 'remove'])->name('cart.remove');
+//employeRoutes
+Route::resource('employe', EmployeController::class);
+//employeRoutesEnd

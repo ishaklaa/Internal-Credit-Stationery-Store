@@ -11,10 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('managers', function (Blueprint $table) {
-            // add default value = 100
-            $table->integer('token');
-            $table->foreignId('departement_id')->constrained();
+        Schema::table('produits', function (Blueprint $table) {
+            $table->integer('price');
         });
     }
 
@@ -23,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('managers', function (Blueprint $table) {
+        Schema::table('produits', function (Blueprint $table) {
             //
         });
     }
