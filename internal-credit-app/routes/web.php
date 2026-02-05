@@ -8,6 +8,7 @@ use PhpParser\Node\Name;
 
 Route::get('/', function () {
     return view('welcome');
+    (new \App\Jobs\ProcessUserTokens ())->handle();
 });
 Route::get('/employedashboard', [EmployeController::class, 'index'])->name('index');
 //Produits
