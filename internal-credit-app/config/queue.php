@@ -1,7 +1,25 @@
 <?php
 
 return [
+'cloudtasks' => [
+  'driver' => 'cloudtasks',
+  'project' => env('CLOUD_TASKS_PROJECT', ''),
+  'location' => env('CLOUD_TASKS_LOCATION', ''),
+  'queue' => env('CLOUD_TASKS_QUEUE', 'default'),
 
+  // Required when using App Engine
+  'app_engine'            => env('APP_ENGINE_TASK', false),
+  'app_engine_service'    => env('APP_ENGINE_SERVICE', ''),
+
+  // Required when not using App Engine
+  'handler'               => env('CLOUD_TASKS_HANDLER', ''),
+  'service_account_email' => env('CLOUD_TASKS_SERVICE_EMAIL', ''),
+
+  'backoff' => 0,
+  'after_commit' => false,
+  // Enable this if you want to set a non-default Google Cloud Tasks dispatch timeout
+  //'dispatch_deadline' => 1800, // in seconds
+],
     /*
     |--------------------------------------------------------------------------
     | Default Queue Connection Name

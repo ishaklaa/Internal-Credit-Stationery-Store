@@ -21,6 +21,5 @@ class Produit extends Model
         'title',
         'quantity',
         'status',
-        'Departement_id'
     ];
 }
