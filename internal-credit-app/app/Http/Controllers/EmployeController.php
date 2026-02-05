@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Http\Controllers\TokensController;
 use App\Models\Employe;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
 class EmployeController extends Controller
 {
     /**
@@ -13,6 +15,7 @@ class EmployeController extends Controller
      */
     public function index()
     {
+        TokensController::tokensReloader();
         $employeId = Auth::id() ?? 1;
         //just with fake data 
         $employe = Employe::find($employeId);
