@@ -5,38 +5,35 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
 class TokensController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-       public static function tokensReloader()
+    public static function tokensReloader()
     {
-        $userId = Auth::id() ?? 1;
-        $userRole = Auth::user()->role_id ?? 3;
-        if ($userRole == 2) {
-            $user = DB::table('managers')->find($userId);
-            $userLogin = $user->updated_at;
-            $table = "managers";
-        } else if ($userRole == 3){
-            $user = DB::table('employes')->find($userId);
-            $userLogin = $user->updated_at;
-            $table = "employes";
-        }
+
+        $user = DB::table('admins')->find(1);
+        $userLogin = $user->updated_at;
         $loginDate =  $userLogin ?? '2026-01-04 14:16:26';
-        $currentTime = now();
+        $currentTime = now()->format('Y-m-d');
         $time = strtotime($currentTime);
         $loginDateConverted = strtotime($loginDate);
         $timeDeff = $time - $loginDateConverted;
         if ($timeDeff  >= 2674811 ||  $timeDeff <= 2585650.633333333) {
-            DB::table($table)
+            DB::table("employes")
+                ->update([
+                    'token' => 1000,
+                    'updated_at' =>  $currentTime
+                ]);
+            DB::table("managers")
                 ->update([
                     'token' => 1000,
                     'updated_at' =>  $currentTime
                 ]);
         }
 
-        return $user->token;
     }
     public function index()
     {
