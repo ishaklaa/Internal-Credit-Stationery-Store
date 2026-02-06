@@ -21,5 +21,6 @@ class Produit extends Model
         'title',
         'quantity',
         'status',
+        'prix',
     ];
 }
