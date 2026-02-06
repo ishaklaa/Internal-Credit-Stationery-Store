@@ -24,12 +24,17 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {   
-        $role= auth::user()->role_id;
+        
         $request->authenticate();
 
         $request->session()->regenerate();
+        $role= auth::user()->role_id;
+       
+        
         if($role == 3){
+            
             return redirect()->route('list.produits');
+            
         }
         // else if ($role == 2){
         //     return redirect()->route();
