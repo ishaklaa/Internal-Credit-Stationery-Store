@@ -14,6 +14,6 @@ class CommandeSeeder extends Seeder
     public function run(): void
     {
         //
-        Commande::factory(10)->create();
+        
     }
 }
