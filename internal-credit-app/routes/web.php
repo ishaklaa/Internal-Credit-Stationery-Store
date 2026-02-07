@@ -4,7 +4,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CommandeController;
 use App\Http\Controllers\CommandesInfoController;
 use App\Http\Controllers\EmployeController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\ProduitController;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {

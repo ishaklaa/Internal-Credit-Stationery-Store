@@ -237,7 +237,6 @@
         }
     </style>
 </head>
-
 <body>
 
     <div class="app-container">
