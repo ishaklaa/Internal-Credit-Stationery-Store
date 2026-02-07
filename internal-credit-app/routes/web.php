@@ -9,11 +9,15 @@ use App\Http\Controllers\ProduitController;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 <<<<<<< HEAD
+<<<<<<< HEAD
 use PhpParser\Node\Name;
 use App\Notifications\managerResponse;
 =======
 
 >>>>>>> 71398a7769c701201a377f1bb12f68c8a9d504cb
+=======
+
+>>>>>>> 4c473febcff16b8e679a6318bdfd8c11abfd212a
 Route::get('/', function () {
     return view('welcome');
     (new \App\Jobs\ProcessUserTokens ())->handle();
@@ -41,8 +45,11 @@ Route::post('/addCommand', [CommandeController::class, 'addCommand'])->name('add
 Route::resource('employe', EmployeController::class);
 //employeRoutesEnd
 <<<<<<< HEAD
+<<<<<<< HEAD
 Route::get ("notifications",[MailController::class , 'index']);
 =======
+=======
+>>>>>>> 4c473febcff16b8e679a6318bdfd8c11abfd212a
 
 
 
@@ -51,4 +58,7 @@ Route::get ("notifications",[MailController::class , 'index']);
 Route::resource('produits', ProduitController::class);
 //produitRoutesEnd
 
+<<<<<<< HEAD
 >>>>>>> 71398a7769c701201a377f1bb12f68c8a9d504cb
+=======
+>>>>>>> 4c473febcff16b8e679a6318bdfd8c11abfd212a

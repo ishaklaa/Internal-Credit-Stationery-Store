@@ -239,12 +239,15 @@
 </head>
 <body>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <div class="container">
         <!-- PRODUCTS -->
         <div class="products-section">
             <h1>Products</h1>
             <div class="products">
 =======
+=======
+>>>>>>> 4c473febcff16b8e679a6318bdfd8c11abfd212a
 
     <div class="app-container">
 
@@ -262,7 +265,10 @@
             </header>
 
             <div class="products-grid">
+<<<<<<< HEAD
 >>>>>>> 71398a7769c701201a377f1bb12f68c8a9d504cb
+=======
+>>>>>>> 4c473febcff16b8e679a6318bdfd8c11abfd212a
                 @foreach ($products as $product)
                     <article class="product-card">
                         <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=400"
