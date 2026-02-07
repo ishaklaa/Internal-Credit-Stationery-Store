@@ -35,3 +35,9 @@ Route::resource('employe', EmployeController::class);
 //employeRoutesEnd
 
 
+
+
+//produitRoutes
+Route::resource('produits', ProduitController::class);
+//produitRoutesEnd
+
