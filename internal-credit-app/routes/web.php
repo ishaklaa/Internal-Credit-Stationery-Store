@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CommandeController;
 use App\Http\Controllers\CommandesInfoController;
 use App\Http\Controllers\EmployeController;
@@ -7,12 +8,28 @@ use App\Http\Controllers\MailController;
 use App\Http\Controllers\ProduitController;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
+<<<<<<< HEAD
 use PhpParser\Node\Name;
 use App\Notifications\managerResponse;
+=======
+
+>>>>>>> 71398a7769c701201a377f1bb12f68c8a9d504cb
 Route::get('/', function () {
     return view('welcome');
     (new \App\Jobs\ProcessUserTokens ())->handle();
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';
 Route::get('/employedashboard', [EmployeController::class, 'index'])->name('index');
 //Produits
 Route::get('/index', [ProduitController::class, 'index'])->name('list.produits');
@@ -23,4 +40,15 @@ Route::post('/addCommand', [CommandeController::class, 'addCommand'])->name('add
 //employeRoutes
 Route::resource('employe', EmployeController::class);
 //employeRoutesEnd
+<<<<<<< HEAD
 Route::get ("notifications",[MailController::class , 'index']);
+=======
+
+
+
+
+//produitRoutes
+Route::resource('produits', ProduitController::class);
+//produitRoutesEnd
+
+>>>>>>> 71398a7769c701201a377f1bb12f68c8a9d504cb

@@ -3,244 +3,322 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Products with Cart Sidebar</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Store</title>
+    <!-- Modern Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --danger: #ef4444;
+            --success: #10b981;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            transition: all 0.2s ease-in-out;
+        }
+
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
         }
 
-        .container {
-            display: flex;
-        }
-
-        /* PRODUCTS */
-        .products-section {
-            flex: 3;
-            padding: 20px;
-        }
-
-        h1 {
-            margin-bottom: 20px;
-        }
-
-        .products {
+        /* LAYOUT */
+        .app-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
+            grid-template-columns: 1fr 350px;
+            min-height: 100vh;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
+        @media (max-width: 900px) {
+            .app-container {
+                grid-template-columns: 1fr;
+            }
+
+            .cart-sidebar {
+                position: static;
+                height: auto;
+                border-left: none;
+                border-top: 1px solid #e2e8f0;
+            }
+        }
+
+        /* PRODUCTS SECTION */
+        .products-section {
+            padding: 40px;
+        }
+
+        .header {
+            margin-bottom: 32px;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 24px;
+        }
+
+        /* PRODUCT CARD */
         .product-card {
-            background: #fff;
-            border-radius: 8px;
-            padding: 15px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            text-align: center;
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: var(--shadow);
+            border: 1px solid #f1f5f9;
         }
 
-        .product-card img {
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+        }
+
+        .product-image {
             width: 100%;
-            height: 140px;
+            height: 180px;
             object-fit: cover;
-            border-radius: 6px;
+            border-radius: 12px;
+            background-color: #f1f5f9;
+            margin-bottom: 16px;
         }
 
         .product-card h3 {
-            margin: 10px 0 5px;
-            font-size: 18px;
+            margin: 0 0 8px 0;
+            font-size: 1.1rem;
+            font-weight: 600;
         }
 
-        .price {
-            color: #27ae60;
-            font-weight: bold;
-            margin-bottom: 10px;
+        .price-tag {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 16px;
+            display: block;
         }
 
         .add-btn {
-            background: #3498db;
-            color: #fff;
-            border: none;
-            padding: 10px;
             width: 100%;
-            border-radius: 5px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
         .add-btn:hover {
-            background: #2980b9;
+            background: var(--primary-hover);
         }
 
         /* CART SIDEBAR */
-        .cart {
-            flex: 1;
-            background: #fff;
-            border-left: 1px solid #ddd;
-            padding: 20px;
-            min-height: 100vh;
-        }
-
-        .cart h2 {
-            margin-bottom: 15px;
-        }
-
-        .cart-item {
+        .cart-sidebar {
+            background: #ffffff;
+            border-left: 1px solid #e2e8f0;
+            padding: 32px 24px;
+            position: sticky;
+            top: 0;
+            height: 100vh;
             display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid #eee;
-            font-size: 14px;
+            flex-direction: column;
         }
 
-        .cart-total {
-            margin-top: 20px;
-            font-weight: bold;
-        }
-
-        .checkout-btn {
-            margin-top: 15px;
-            width: 100%;
-            padding: 10px;
-            background: #2ecc71;
-            border: none;
-            color: #fff;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .checkout-btn:hover {
-            background: #27ae60;
-        }
-
-        .qty-input {
-            width: 35px;
-            height: 19px;
-            padding: 5px 8px;
-            font-size: 14px;
-            text-align: center;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            outline: none;
-            transition: border-color 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        /* focus */
-        .qty-input:focus {
-            border-color: #3498db;
-            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
-        }
-
-        /* remove ugly arrows (optional) */
-        .qty-input::-webkit-outer-spin-button,
-        .qty-input::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-
-        .qty-input {
-            -moz-appearance: textfield;
-        }
-
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .item-title {
-            font-size: 14px;
-        }
-
-        .item-actions {
+        .cart-sidebar h2 {
+            font-size: 1.5rem;
+            margin-bottom: 24px;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .item-price {
-            font-size: 14px;
-            font-weight: 600;
+        .cart-items-list {
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .item-info b {
+            display: block;
+            font-size: 0.95rem;
+        }
+
+        .item-info span {
+            color: var(--text-muted);
+            font-size: 0.85rem;
         }
 
         .remove-btn {
-            width: 22px;
-            height: 22px;
+            background: #fee2e2;
+            color: var(--danger);
             border: none;
-            background: #e74c3c;
-            color: #fff;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
             cursor: pointer;
-            line-height: 1;
             display: flex;
             align-items: center;
             justify-content: center;
+            text-decoration: none;
         }
 
         .remove-btn:hover {
-            background: #c0392b;
+            background: var(--danger);
+            color: white;
+        }
+
+        /* FOOTER CART */
+        .cart-footer {
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 2px solid #f1f5f9;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background: var(--success);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2);
+        }
+
+        .checkout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        /* Alerts */
+        .alert {
+            padding: 15px;
+            background: #fee2e2;
+            color: var(--danger);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--danger);
         }
     </style>
 </head>
 <body>
+<<<<<<< HEAD
     <div class="container">
         <!-- PRODUCTS -->
         <div class="products-section">
             <h1>Products</h1>
             <div class="products">
+=======
+
+    <div class="app-container">
+
+        <!-- MAIN PRODUCTS SECTION -->
+        <main class="products-section">
+            <header class="header">
+                <h1>Featured Products</h1>
+                @if ($errors->any())
+                    <div class="alert">
+                        @foreach ($errors->all() as $error)
+                            <p style="margin:0">{{ $error }}</p>
+                        @endforeach
+                    </div>
+                @endif
+            </header>
+
+            <div class="products-grid">
+>>>>>>> 71398a7769c701201a377f1bb12f68c8a9d504cb
                 @foreach ($products as $product)
-                    <div class="product-card">
-                        <img src="https://via.placeholder.com/300x200" alt="Product">
+                    <article class="product-card">
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=400"
+                            alt="Product" class="product-image">
                         <h3>{{ $product->title }}</h3>
-                        <div class="price">${{ $product->prix }}</div>
+                        <span class="price-tag">${{ number_format($product->prix, 2) }}</span>
+
                         <form action="{{ route('add.cart', $product) }}" method="post">
                             @csrf
-                            <!-- quantity -->
-                            <div class="quantity">
-                                <label>Qty</label>
-                                <input class="qty-input" type="number" name="quantity" value="1" min="1">
-                            </div>
-
-                            <button class="add-btn" type="submit">Add to Cart</button>
+                            <input type="hidden" name="quantity" value="1">
+                            <button class="add-btn" type="submit">
+                                <span>Add to Cart</span>
+                            </button>
                         </form>
-
-                    </div>
+                    </article>
                 @endforeach
             </div>
-        </div>
-        @if (session()->has('basket'))
-            <!-- CART SIDEBAR -->
-            <div class="cart">
-                <h2>Your Cart</h2>
-                @php $total=0 @endphp
-                @foreach (session('basket') as $key => $item)
-                    @php $total += $item['quantity'] * $item['prix'] @endphp
-                    <!-- Static UI items -->
-                    <div class="cart-item">
-                        <span>{{ $item['title'] }}</span>
-                        <span>${{ $item['quantity'] * $item['prix'] }}</span>
-                        <button class="remove-btn" type="button" title="Remove">
-                            <a href="{{ route('cart.remove', $key) }}"> &times;</a>
-                        </button>
+        </main>
+
+        <!-- CART SIDEBAR -->
+        <aside class="cart-sidebar">
+            <h2>🛒 Your Cart</h2>
+
+            <div class="cart-items-list">
+                @if (session()->has('basket') && count(session('basket')) > 0)
+                    @php $total = 0 @endphp
+                    @foreach (session('basket') as $key => $item)
+                        @php $total += $item['quantity'] * $item['prix'] @endphp
+                        <div class="cart-item">
+                            <div class="item-info">
+                                <b>{{ $item['title'] }}</b>
+                                <span>{{ $item['quantity'] }} x ${{ $item['prix'] }}</span>
+                            </div>
+                            <a href="{{ route('cart.remove', $key) }}" class="remove-btn" title="Remove item">
+                                &times;
+                            </a>
+                        </div>
+                    @endforeach
+                @else
+                    <p style="color: var(--text-muted); text-align: center; margin-top: 40px;">Your cart is empty</p>
+                @endif
+            </div>
+
+            @if (session()->has('basket') && count(session('basket')) > 0)
+                <div class="cart-footer">
+                    <div class="total-row">
+                        <span>Total</span>
+                        <span>${{ number_format($total, 2) }}</span>
                     </div>
-                @endforeach
-
-
-
-
-                <div class="cart-total">
-                    Total: ${{ $total }}
+                    <form action="{{ route('add.Command') }}" method="post">
+                        @csrf
+                        <button class="checkout-btn" type="submit">Complete Checkout</button>
+                    </form>
                 </div>
-                <form action="{{ route('add.Command') }}" method="post">
-                    @csrf
-                    <button class="checkout-btn" type="submit">Checkout</button>
-                </form>
-
-        @endif
+            @endif
+        </aside>
 
     </div>
 

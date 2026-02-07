@@ -11,7 +11,7 @@ class MailController extends Controller
     //
     public function index($userid, $managerResponse)
     {
-        $user = User::find(1);
+        $user = User::find($userid);
         $user->email = "";
         if ($managerResponse == "accept") {
             $data = [
