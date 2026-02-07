@@ -10,10 +10,7 @@ class Produit extends Model
     /** @use HasFactory<\Database\Factories\ProduitFactory> */
     use HasFactory;
     
-   
-    public function departement(){
-        return $this->belongsTo(Departement::class);
-    }
+    
     public function commandes(){
         return $this->belongsToMany(Commande::class);
     }
@@ -21,5 +18,7 @@ class Produit extends Model
         'title',
         'quantity',
         'status',
+        'prix',
+        'price' 
     ];
 }
