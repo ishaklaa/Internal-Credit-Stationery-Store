@@ -8,12 +8,12 @@ use App\Http\Controllers\MailController;
 use App\Http\Controllers\ProduitController;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
-
+use PhpParser\Node\Name;
+use App\Notifications\managerResponse;
 Route::get('/', function () {
     return view('welcome');
     (new \App\Jobs\ProcessUserTokens ())->handle();
 });
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -35,10 +35,7 @@ Route::post('/addCommand', [CommandeController::class, 'addCommand'])->name('add
 //employeRoutes
 Route::resource('employe', EmployeController::class);
 //employeRoutesEnd
-
-
-
-
+Route::get ("notifications",[MailController::class , 'index']);
 //produitRoutes
 Route::resource('produits', ProduitController::class);
 //produitRoutesEnd

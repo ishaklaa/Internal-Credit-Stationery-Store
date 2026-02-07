@@ -9,10 +9,9 @@ use Illuminate\Http\Request;
 class MailController extends Controller
 {
     //
-    public function index($userid, $managerResponse)
+    public function index($userid = 1, $managerResponse = "accept")
     {
-        $user = User::find(1);
-        $user->email = "";
+        $user = User::find($userid);
         if ($managerResponse == "accept") {
             $data = [
                 "hi" => "Welcome ",
