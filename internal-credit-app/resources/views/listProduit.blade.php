@@ -186,15 +186,11 @@
         }
     </style>
 </head>
-
 <body>
-
     <div class="container">
-
         <!-- PRODUCTS -->
         <div class="products-section">
             <h1>Products</h1>
-
             <div class="products">
                 @foreach ($products as $product)
                     <div class="product-card">

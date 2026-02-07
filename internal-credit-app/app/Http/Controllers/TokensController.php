@@ -13,7 +13,6 @@ class TokensController extends Controller
      */
     public static function tokensReloader()
     {
-
         $user = DB::table('admins')->find(1);
         $userLogin = $user->updated_at;
         $loginDate =  $userLogin ?? '2026-01-04 14:16:26';
