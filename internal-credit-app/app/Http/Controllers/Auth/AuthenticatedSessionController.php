@@ -39,10 +39,10 @@ class AuthenticatedSessionController extends Controller
             return redirect()->route('manager.commandes.index');
         }
 
-        // else if ($role == 3){
-        //     return redirect()->route();
-        // }
-        // return redirect()->intended(route('dashboard', absolute: false));
+        else if ($role == 3){
+            // return redirect()->route();
+        }
+        
     }
 
     /**
