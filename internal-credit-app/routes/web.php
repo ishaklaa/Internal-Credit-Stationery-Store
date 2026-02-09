@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-    (new \App\Jobs\ProcessUserTokens ())->handle();
+    (new \App\Jobs\ProcessUserTokens())->handle();
 });
 
 Route::get('/dashboard', function () {
@@ -22,7 +22,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 Route::get('/employedashboard', [EmployeController::class, 'index'])->name('index');
 //Produits
 Route::get('/index', [ProduitController::class, 'index'])->name('list.produits');
@@ -33,5 +33,12 @@ Route::post('/addCommand', [CommandeController::class, 'addCommand'])->name('add
 //employeRoutes
 Route::resource('employe', EmployeController::class);
 //employeRoutesEnd
+Route::get('/manager/commandes', [CommandeController::class, 'showCmds'])
+    ->name('manager.commandes.index');
 
+Route::post('/manager/commandes/{commandeInfo}/accept', [CommandeController::class, 'accept'])
+    ->name('commandes.accept');
 
+// refuser une commande
+Route::post('/manager/commandes/{commandeInfo}/reject', [CommandeController::class, 'reject'])
+    ->name('commandes.reject');

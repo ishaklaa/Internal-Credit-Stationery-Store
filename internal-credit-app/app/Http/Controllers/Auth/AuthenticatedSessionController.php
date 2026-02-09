@@ -23,22 +23,22 @@ class AuthenticatedSessionController extends Controller
      * Handle an incoming authentication request.
      */
     public function store(LoginRequest $request)
-    {   
-        
+    {
+
         $request->authenticate();
 
         $request->session()->regenerate();
-        $role= auth::user()->role_id;
-       
-        
-        if($role == 3){
-            
+        $role = auth::user()->role_id;
+
+
+        if ($role == 3) {
+
             return redirect()->route('list.produits');
-            
         }
-        // else if ($role == 2){
-        //     return redirect()->route();
-        // }
+        if ($role == 2) {
+            return redirect()->route('manager.commandes.index');
+        }
+
         // else if ($role == 3){
         //     return redirect()->route();
         // }

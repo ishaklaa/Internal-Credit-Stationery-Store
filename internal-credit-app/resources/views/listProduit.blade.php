@@ -266,6 +266,7 @@
                         <form action="{{ route('add.cart', $product) }}" method="post">
                             @csrf
                             <input type="hidden" name="quantity" value="1">
+                            <input type="hidden" name="status" value="{{ $product->status }}">
                             <button class="add-btn" type="submit">
                                 <span>Add to Cart</span>
                             </button>
