@@ -10,7 +10,7 @@
     <div class="container mt-4">
         <h1>Créer un nouveau produit</h1>
         
-        <form action="{{ route('produits.store') }}" method="POST">
+        <form action="{{ route('produits.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             
             <div class="mb-3">
@@ -24,13 +24,20 @@
             </div>
             
             <div class="mb-3">
-                <label for="status" class="form-label">Statut</label>
-                <input type="text" class="form-control" id="status" name="status" required>
+                <select name="statuts">
+                        <option value="premium">Premium</option>
+                        <option value="normal">Normal</option>
+                </select>
+
             </div>
             
             <div class="mb-3">
                 <label for="price" class="form-label">Prix</label>
-                <input type="number" class="form-control" id="price" name="price" min="0" required>
+                <input type="number" class="form-control" id="price" name="prix" min="0" required>
+            </div>
+
+            <div class="mb-3">
+                <input type="file" name="img" required>
             </div>
             
             <button type="submit" class="btn btn-primary">Créer le produit</button>
