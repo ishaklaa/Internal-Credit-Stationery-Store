@@ -35,8 +35,9 @@ Route::post('/addCommand', [CommandeController::class, 'addCommand'])->name('add
 //employeRoutes
 Route::resource('employe', EmployeController::class);
 //employeRoutesEnd
-Route::get ("notifications",[MailController::class , 'index']);
+//notify the employee route
+Route::get ("notifications",[MailController::class , 'notifyTheEmployee']);
+//notify the employee routend
 //produitRoutes
 Route::resource('produits', ProduitController::class);
 //produitRoutesEnd
-

@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class MailController extends Controller
 {
     //
-    public function index($userid = 1, $managerResponse = "accept")
+    public function notifyTheEmployee($userid , $managerResponse)
     {
         $user = User::find($userid);
         if ($managerResponse == "accept") {
