@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\Employe;
 use App\Models\manager;
 use Illuminate\Console\Command;
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Container\Attributes\DB;
 
 use function Laravel\Prompts\table;
@@ -30,7 +31,7 @@ class UpdateUserTokens extends Command
      */
     public function handle()
     {
-        //
- 
-}
+      //
+    var_dump ("zzz");
+  }
 }
