@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Commande;
 use App\Models\CommandesInfo;
 use App\Models\Employe;
+use App\Models\manager;
 use App\Models\Produit;
 use Exception;
 use Illuminate\Foundation\Auth\User;
@@ -12,14 +13,22 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+
 class CommandeController extends Controller
 {
     public function addCommand()
     {
         $products = session()->get("basket");
         //dd($products);
-        $employeId = 1; //Auth::id();
-        $employe = Auth::user();
+        $userId = Auth::user()->id;
+
+        $employe = Employe::where('user_id', $userId)->first();
+
+        $employeId = $employe->id;
+        // dd($employeId);
+
+
+        // $employe = Auth::user();
 
         try {
 
@@ -156,26 +165,34 @@ class CommandeController extends Controller
 
     public function showCmds()
     {
-        $depId = Auth::user()->departement_id;
+        $user = Auth::user();
+        $manager = manager::where('user_id', $user->id)->first();
+        $depId = $manager->departement_id;
+
 
         $commandesInfos = CommandesInfo::where('status', 'pending')->get();
 
         $items = [];
 
         foreach ($commandesInfos as $cmd) {
-            $user = Employe::find($cmd->employeId);
+            // $user = Employe::find($cmd->employeId);
             // if (! $user || $user->departement_id != $depId) {
             //     continue;
             // }
-
             $commande = Commande::find($cmd->commande_id);
-            $employe  = User::find($commande->employeId);
-            $produit  = Produit::find($cmd->produit_id);
-            $items[] = [
-                'cmd'          => $cmd,
-                'employeName'  => $employe?->name,
-                'produitTitle' => $produit?->title,
-            ];
+            $employe = Employe::find($commande->employeId);
+            $user = User::find($employe->user_id);
+
+            // $employe = Employe::where('id',$employe_id)->first();
+
+            if ($employe->departement_id == $depId) {
+                $produit  = Produit::find($cmd->produit_id);
+                $items[] = [
+                    'cmd'          => $cmd,
+                    'employeName'  => $user?->name,
+                    'produitTitle' => $produit?->title,
+                ];
+            }
         }
 
         return view('manager', compact('items'));
