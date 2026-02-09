@@ -23,5 +23,5 @@ Schedule::call(function () {
         $manager->save();
      }
 
-})->everyFiveSeconds();
+})->monthly();
 
