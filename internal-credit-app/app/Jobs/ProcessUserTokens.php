@@ -35,5 +35,6 @@ class ProcessUserTokens implements ShouldQueue
                 ->update([
                     'token' => 1000,
                 ]);
+                
     }
 }

@@ -17,7 +17,6 @@ class managerResponse extends Notification
     public function __construct(public $mailData)
     {
         //
-        var_dump ($mailData["wish"]);
     }
 
     /**
