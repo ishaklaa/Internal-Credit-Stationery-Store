@@ -12,7 +12,6 @@ use PhpParser\Node\Name;
 use App\Notifications\managerResponse;
 Route::get('/', function () {
     return view('welcome');
-    (new \App\Jobs\ProcessUserTokens ())->handle();
 });
 Route::get('/dashboard', function () {
     return view('dashboard');
