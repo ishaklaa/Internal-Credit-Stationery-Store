@@ -15,9 +15,6 @@ class EmployeController extends Controller
      */
     public function index()
     {
-        
-        $userTokens =  TokensController::tokensReloader();
-        TokensController::tokensReloader();
         $employeId = Auth::id() ?? 1;
         //just with fake data 
         $employe = Employe::find($employeId);
@@ -31,7 +28,6 @@ class EmployeController extends Controller
     {
         //
     }
-
     /**
      * Store a newly created resource in storage.
      */
