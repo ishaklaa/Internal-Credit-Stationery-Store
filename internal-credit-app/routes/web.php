@@ -4,14 +4,16 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CommandeController;
 use App\Http\Controllers\CommandesInfoController;
 use App\Http\Controllers\EmployeController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\ProduitController;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
-
+use PhpParser\Node\Name;
+use App\Notifications\managerResponse;
 Route::get('/', function () {
     return view('welcome');
-    (new \App\Jobs\ProcessUserTokens())->handle();
+    
 });
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -25,7 +27,7 @@ Route::middleware('auth')->group(function () {
 require __DIR__ . '/auth.php';
 Route::get('/employedashboard', [EmployeController::class, 'index'])->name('index');
 //Produits
-Route::get('/index', [ProduitController::class, 'index'])->name('list.produits');
+Route::get('/index', [ProduitController::class, 'indexx'])->name('list.produits');
 Route::post('/addCarte/{product}', [CommandesInfoController::class, 'addCart'])->name('add.cart');
 Route::get('/removeCart/{id}', [CommandesInfoController::class, 'remove'])->name('cart.remove');
 //add commande from panier 
@@ -42,3 +44,9 @@ Route::post('/manager/commandes/{commandeInfo}/accept', [CommandeController::cla
 // refuser une commande
 Route::post('/manager/commandes/{commandeInfo}/reject', [CommandeController::class, 'reject'])
     ->name('commandes.reject');
+//notify the employee route
+Route::get ("notifications/{id}/{managerResponse}",[MailController::class , 'notifyTheEmployee'])->name('notify.employe');
+//notify the employee routend
+//produitRoutes
+Route::resource('produits', ProduitController::class);
+//produitRoutesEnd

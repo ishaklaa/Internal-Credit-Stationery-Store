@@ -39,7 +39,7 @@ class AuthenticatedSessionController extends Controller
             return redirect()->route('manager.commandes.index');
         }
 
-        else if ($role == 3){
+        else if ($role == 1){
             // return redirect()->route();
         }
         

@@ -240,81 +240,89 @@
 
 <body>
 
-    <div class="app-container">
+    <div class="container">
+        <!-- PRODUCTS -->
+        <div class="products-section">
+            <h1>Products</h1>
+            <div class="products">
 
-        <!-- MAIN PRODUCTS SECTION -->
-        <main class="products-section">
-            <header class="header">
-                <h1>Featured Products</h1>
-                @if ($errors->any())
-                    <div class="alert">
-                        @foreach ($errors->all() as $error)
-                            <p style="margin:0">{{ $error }}</p>
-                        @endforeach
-                    </div>
-                @endif
-            </header>
 
-            <div class="products-grid">
-                @foreach ($products as $product)
-                    <article class="product-card">
-                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=400"
-                            alt="Product" class="product-image">
-                        <h3>{{ $product->title }}</h3>
-                        <span class="price-tag">${{ number_format($product->prix, 2) }}</span>
+                <div class="app-container">
 
-                        <form action="{{ route('add.cart', $product) }}" method="post">
-                            @csrf
-                            <input type="hidden" name="quantity" value="1">
-                            <input type="hidden" name="status" value="{{ $product->status }}">
-                            <button class="add-btn" type="submit">
-                                <span>Add to Cart</span>
-                            </button>
-                        </form>
-                    </article>
-                @endforeach
-            </div>
-        </main>
-
-        <!-- CART SIDEBAR -->
-        <aside class="cart-sidebar">
-            <h2>🛒 Your Cart</h2>
-
-            <div class="cart-items-list">
-                @if (session()->has('basket') && count(session('basket')) > 0)
-                    @php $total = 0 @endphp
-                    @foreach (session('basket') as $key => $item)
-                        @php $total += $item['quantity'] * $item['prix'] @endphp
-                        <div class="cart-item">
-                            <div class="item-info">
-                                <b>{{ $item['title'] }}</b>
-                                <span>{{ $item['quantity'] }} x ${{ $item['prix'] }}</span>
+                    <!-- MAIN PRODUCTS SECTION -->
+                    <main class="products-section">
+                        <header class="header">
+                            <h1>Featured Products</h1>
+                            @if ($errors->any())
+                            <div class="alert">
+                                @foreach ($errors->all() as $error)
+                                <p style="margin:0">{{ $error }}</p>
+                                @endforeach
                             </div>
-                            <a href="{{ route('cart.remove', $key) }}" class="remove-btn" title="Remove item">
-                                &times;
-                            </a>
+                            @endif
+                        </header>
+
+                        <div class="products-grid">
+
+                            @foreach ($products as $product)
+                            <article class="product-card">
+                                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=400"
+                                    alt="Product" class="product-image">
+                                <h3>{{ $product->title }}</h3>
+                                <span class="price-tag">${{ number_format($product->prix, 2) }}</span>
+
+                                <form action="{{ route('add.cart', $product) }}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="quantity" value="1">
+                                    <input type="hidden" name="status" value="{{ $product->status }}">
+                                    <button class="add-btn" type="submit">
+                                        <span>Add to Cart</span>
+                                    </button>
+                                </form>
+                            </article>
+                            @endforeach
                         </div>
-                    @endforeach
-                @else
-                    <p style="color: var(--text-muted); text-align: center; margin-top: 40px;">Your cart is empty</p>
-                @endif
-            </div>
+                    </main>
 
-            @if (session()->has('basket') && count(session('basket')) > 0)
-                <div class="cart-footer">
-                    <div class="total-row">
-                        <span>Total</span>
-                        <span>${{ number_format($total, 2) }}</span>
-                    </div>
-                    <form action="{{ route('add.Command') }}" method="post">
-                        @csrf
-                        <button class="checkout-btn" type="submit">Complete Checkout</button>
-                    </form>
+                    <!-- CART SIDEBAR -->
+                    <aside class="cart-sidebar">
+                        <h2>🛒 Your Cart</h2>
+
+                        <div class="cart-items-list">
+                            @if (session()->has('basket') && count(session('basket')) > 0)
+                            @php $total = 0 @endphp
+                            @foreach (session('basket') as $key => $item)
+                            @php $total += $item['quantity'] * $item['prix'] @endphp
+                            <div class="cart-item">
+                                <div class="item-info">
+                                    <b>{{ $item['title'] }}</b>
+                                    <span>{{ $item['quantity'] }} x ${{ $item['prix'] }}</span>
+                                </div>
+                                <a href="{{ route('cart.remove', $key) }}" class="remove-btn" title="Remove item">
+                                    &times;
+                                </a>
+                            </div>
+                            @endforeach
+                            @else
+                            <p style="color: var(--text-muted); text-align: center; margin-top: 40px;">Your cart is empty</p>
+                            @endif
+                        </div>
+
+                        @if (session()->has('basket') && count(session('basket')) > 0)
+                        <div class="cart-footer">
+                            <div class="total-row">
+                                <span>Total</span>
+                                <span>${{ number_format($total, 2) }}</span>
+                            </div>
+                            <form action="{{ route('add.Command') }}" method="post">
+                                @csrf
+                                <button class="checkout-btn" type="submit">Complete Checkout</button>
+                            </form>
+                        </div>
+                        @endif
+                    </aside>
+
                 </div>
-            @endif
-        </aside>
-
-    </div>
 
 </body>
 

@@ -175,16 +175,9 @@ class CommandeController extends Controller
         $items = [];
 
         foreach ($commandesInfos as $cmd) {
-            // $user = Employe::find($cmd->employeId);
-            // if (! $user || $user->departement_id != $depId) {
-            //     continue;
-            // }
             $commande = Commande::find($cmd->commande_id);
             $employe = Employe::find($commande->employeId);
             $user = User::find($employe->user_id);
-
-            // $employe = Employe::where('id',$employe_id)->first();
-
             if ($employe->departement_id == $depId) {
                 $produit  = Produit::find($cmd->produit_id);
                 $items[] = [
@@ -201,15 +194,18 @@ class CommandeController extends Controller
     {
         $commandeInfo->status = 'accepted';
         $commandeInfo->save();
+        $commmande = Commande::find($commandeInfo->commande_id);
+        $employeId = $commmande->employeId;
 
-        return back()->with('success', 'Commande acceptée.');
+        return redirect()->route('notify.employe', ['id' => $employeId, 'managerResponse' => 'accepted'])->with('success', 'Commande acceptée.');
     }
 
     public function reject(CommandesInfo $commandeInfo)
     {
         $commandeInfo->status = 'rejected';
         $commandeInfo->save();
-
-        return back()->with('success', 'Commande refusée.');
+        $commmande = Commande::find($commandeInfo->commande_id);
+        $employeId = $commmande->employeId;
+        return redirect()->route('notify.employe', ['id' => $employeId, 'managerResponse' => 'refused'])->with('success', 'Commande refusée.');
     }
 }
