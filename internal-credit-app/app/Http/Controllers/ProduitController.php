@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
 class ProduitController extends Controller
 {
 
-    public function index()
+    public function indexx()
     {
         $products = Produit::take(3)->get();
         return view('listProduit', compact('products'));
@@ -17,7 +17,7 @@ class ProduitController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function indexx()
+    public function index()
     {
         $produits = Produit::paginate(10);
         return view('produits.index', compact('produits'));
@@ -26,58 +26,51 @@ class ProduitController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-        public function create()
-        {
-            return view('produits.create');
-        }
+    public function create()
+    {
+        return view('produits.create');
+    }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-{
-    $incomingFields = $request->validate([
-        'title' => 'required|string|max:255',
-        'quantity' => 'required|integer|min:0',
-        'status' => 'required|string|max:255',
-        'price' => 'required|integer|min:0'
-    ]);
+    {
+        $incomingFields = $request->validate([
+            'title' => 'required|string|max:255',
+            'quantity' => 'required|integer|min:0',
+            'statuts' => 'required|string|max:255',
+            'prix' => 'required|integer|min:0',
+            'img' => 'required |image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ]);
 
-    Produit::create($incomingFields);
-    
-    return redirect()->route('produits.index')
-                     ->with('success', 'Produit créé avec succès!');
-}
+        if ($request->hasFile("img")) {
+            $incomingFields['img'] = $request->file('img')->store('images', 'public');
+        }
+
+        Produit::create($incomingFields);
+        // dd();
+        return redirect()->route('produits.index')
+            ->with('success', 'Produit créé avec succès!');
+    }
 
     /**
      * Display the specified resource.
      */
-    public function show($id)
-    {
-    }
+    public function show($id) {}
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
-    {
-       
-    }
+    public function edit($id) {}
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
-    {
-        
-    }
+    public function update(Request $request, $id) {}
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
-    {
-        
-
-    }
+    public function destroy($id) {}
 }
