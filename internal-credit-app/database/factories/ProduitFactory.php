@@ -23,7 +23,8 @@ class ProduitFactory extends Factory
             //'departement_id'=> Departement::all()->random()->id,
             'quantity' => fake()->numberBetween(0, 100),
             'status' => $this->faker->randomElement(['normal', 'premium']),
-            'prix' => fake()->randomFloat(2, 5, 1000)
+            'prix' => fake()->randomFloat(2, 5, 1000),
+            
 
         ];
     }

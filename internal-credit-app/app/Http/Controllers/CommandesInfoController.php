@@ -19,7 +19,8 @@ class CommandesInfoController extends Controller
             $product_details = [
                 'title' => $product->title,
                 'prix' => $product->prix,
-                'quantity' => $req->quantity
+                'quantity' => $req->quantity,
+                'status'=> $product->status
             ];
 
             $basket[$product->id] = $product_details;

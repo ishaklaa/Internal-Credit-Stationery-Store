@@ -12,5 +12,7 @@ class CommandesInfo extends Model
     protected $fillable = [
         'commande_id',
         'produit_id',
+        'status',
+
     ];
 }
