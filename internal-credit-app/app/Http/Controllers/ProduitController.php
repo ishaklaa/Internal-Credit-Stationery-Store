@@ -36,13 +36,15 @@ class ProduitController extends Controller
      */
     public function store(Request $request)
     {
+
         $incomingFields = $request->validate([
             'title' => 'required|string|max:255',
             'quantity' => 'required|integer|min:0',
-            'statuts' => 'required|string|max:255',
+            'status' => 'required|string|max:255',
             'prix' => 'required|integer|min:0',
             'img' => 'required |image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
+
 
         if ($request->hasFile("img")) {
             $incomingFields['img'] = $request->file('img')->store('images', 'public');

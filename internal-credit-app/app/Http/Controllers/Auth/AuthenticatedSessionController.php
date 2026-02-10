@@ -37,12 +37,9 @@ class AuthenticatedSessionController extends Controller
         }
         if ($role == 2) {
             return redirect()->route('manager.commandes.index');
+        } else if ($role == 1) {
+            return redirect()->route('produits.index');
         }
-
-        else if ($role == 1){
-            // return redirect()->route();
-        }
-        
     }
 
     /**

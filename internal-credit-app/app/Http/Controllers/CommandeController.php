@@ -134,7 +134,7 @@ class CommandeController extends Controller
 
             );
 
-            // return redirect()->back()->with('success', 'Commande created successfully');
+            return redirect()->back()->with('success', 'Commande created successfully');
         } catch (\Throwable $e) {
             return back()->withErrors([
                 'error' => $e->getMessage()
