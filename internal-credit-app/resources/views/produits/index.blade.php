@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,7 +27,7 @@
         }
 
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #f8fafc;
             min-height: 100vh;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             padding: 2rem 0;
@@ -111,6 +112,7 @@
                 opacity: 0;
                 transform: translateY(-20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -124,8 +126,8 @@
 
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
             margin-bottom: 2rem;
         }
 
@@ -146,7 +148,7 @@
         .product-image-container {
             position: relative;
             width: 100%;
-            height: 250px;
+            height: 200px;
             overflow: hidden;
             background: var(--light-bg);
         }
@@ -182,7 +184,7 @@
             border-radius: 20px;
             font-size: 0.85rem;
             font-weight: 600;
-            backdrop-filter: blur(10px);
+            background-color: #e16e0f;
         }
 
         .status-disponible {
@@ -196,48 +198,65 @@
         }
 
         .product-content {
-            padding: 1.5rem;
+            padding: 1.2rem;
         }
 
         .product-title {
-            font-size: 1.3rem;
+            font-size: 1.15rem;
             font-weight: 700;
             color: var(--dark-color);
-            margin-bottom: 1rem;
-            line-height: 1.4;
+            margin-bottom: 0.8rem;
+            line-height: 1.3;
         }
 
         .product-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            padding: 1rem;
-            background: var(--light-bg);
-            border-radius: 12px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
         }
 
         .info-item {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 0.8rem;
             text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .info-item:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
         }
 
         .info-label {
-            font-size: 0.75rem;
-            color: #6b7280;
+            font-size: 0.7rem;
+            color: #9ca3af;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.4rem;
+            font-weight: 600;
         }
 
         .info-value {
-            font-size: 1.1rem;
-            font-weight: 700;
+            font-size: 1.25rem;
+            font-weight: 800;
             color: var(--dark-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+        }
+
+        .info-value i {
+            font-size: 1rem;
+            color: var(--primary-color);
         }
 
         .price-tag {
-            color: var(--primary-color);
-            font-size: 1.5rem;
+            color: var(--success-color);
+            font-size: 1.4rem;
         }
 
         .product-actions {
@@ -386,6 +405,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="main-container">
         <!-- Header -->
@@ -402,64 +422,70 @@
 
         <!-- Success Alert -->
         @if(session('success'))
-            <div class="alert-custom">
-                <i class="fas fa-check-circle"></i>
-                <span>{{ session('success') }}</span>
-            </div>
+        <div class="alert-custom">
+            <i class="fas fa-check-circle"></i>
+            <span>{{ session('success') }}</span>
+        </div>
         @endif
 
         <!-- Products Grid -->
         @if(count($produits) > 0)
-            <div class="products-grid">
-                @foreach($produits as $produit)
-                <div class="product-card">
-                    <div class="product-image-container">
-                        <img src="{{ asset('storage/' . $produit->img) }}" alt="{{ $produit->title }}" class="product-image">
-                        <div class="product-id-badge">#{{ $produit->id }}</div>
-                        <div class="product-status-badge {{ $produit->status === 'disponible' ? 'status-disponible' : 'status-rupture' }}">
-                            <i class="fas {{ $produit->status === 'disponible' ? 'fa-check' : 'fa-times' }}"></i>
-                            {{ ucfirst($produit->status) }}
-                        </div>
-                    </div>
-                    <div class="product-content">
-                        <h3 class="product-title">{{ $produit->title }}</h3>
-                        <div class="product-info">
-                            <div class="info-item">
-                                <div class="info-label">Quantité</div>
-                                <div class="info-value">
-                                    <i class="fas fa-box"></i> {{ $produit->quantity }}
-                                </div>
-                            </div>
-                            <div class="info-item">
-                                <div class="info-label">Prix</div>
-                                <div class="info-value price-tag">
-                                    {{ number_format($produit->price, 2, ',', ' ') }} €
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-actions">
-                            <a href="#" class="btn-action btn-edit">
-                                <i class="fas fa-edit"></i>
-                                Modifier
-                            </a>
-                            <a href="#" class="btn-action btn-delete">
-                                <i class="fas fa-trash"></i>
-                                Supprimer
-                            </a>
-                        </div>
+        <div class="products-grid">
+            @foreach($produits as $produit)
+            <div class="product-card">
+                <div class="product-image-container">
+                    <img src="{{ asset('storage/' . $produit->img) }}" alt="{{ $produit->title }}" class="product-image">
+                    <div class="product-status-badge">
+                        <i class="">{{$produit->statuts}}</i>
                     </div>
                 </div>
-                @endforeach
+                <div class="product-content">
+                    <h3 class="product-title">{{ $produit->title }}</h3>
+                    <div class="product-info">
+                        <div class="info-item">
+                            <div class="info-label">Quantité</div>
+                            <div class="info-value">
+                                <i class="fas fa-box"></i> {{ $produit->quantity }}
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Prix</div>
+                            <div class="info-value price-tag">
+                                {{ $produit->prix }} €
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-actions">
+                        <a href="{{ route('produits.edit', $produit->id) }}" class="btn btn-warning">
+                            <i class="fas fa-edit"></i>
+                            Modifier
+                        </a>
+
+
+                        <form action="{{route('produits.destroy' , $produit->id)}}" method="POST">
+                            @csrf
+                            @method("delete")
+                            <button type="submit" class="btn-action btn-delete">
+                                <i class="fas fa-trash"></i>
+                                Supprimer
+                            </button>
+                        </form>
+
+                    </div>
+                </div>
             </div>
+            @endforeach
+        </div>
         @else
-            <div class="empty-state">
-                <i class="fas fa-inbox"></i>
-                <h3>Aucun produit disponible</h3>
-                <p>Commencez par ajouter votre premier produit</p>
-            </div>
+        <div class="empty-state">
+            <i class="fas fa-inbox"></i>
+            <h3>Aucun produit disponible</h3>
+            <p>Commencez par ajouter votre premier produit</p>
+        </div>
         @endif
     </div>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
