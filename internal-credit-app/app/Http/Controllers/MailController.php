@@ -12,7 +12,7 @@ class MailController extends Controller
     public function notifyTheEmployee($userid , $managerResponse)
     {
         $user = User::find($userid);
-        if ($managerResponse == "accept") {
+        if ($managerResponse == "accepted") {
             $data = [
                 "hi" => "Welcome ",
                 "wish" => "I hope that your are fine",
