@@ -37,13 +37,15 @@ class ProduitController extends Controller
      */
     public function store(Request $request)
     {
+
         $incomingFields = $request->validate([
             'title' => 'required|string|max:255',
             'quantity' => 'required|integer|min:0',
-            'statuts' => 'required|string|max:255',
+            'status' => 'required|string|max:255',
             'prix' => 'required|integer|min:0',
             'img' => 'required |image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
+
 
         if ($request->hasFile("img")) {
             $incomingFields['img'] = $request->file('img')->store('images', 'public');
@@ -69,34 +71,35 @@ class ProduitController extends Controller
     {
         return view("produits.edit", compact('produit'));
     }
- 
+
 
     /**
      * Update the specified resource in storage.
      */
 
-   
+
 
     public function update(Request $request, Produit $produit)
-{
-    $valide = $request->validate([
-        'title' => 'required|string|max:255',
-        'quantity' => 'required|integer|min:0',
-        'statuts' => 'required|string|max:255',
-        'prix' => 'required|integer|min:0',
-        'img' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg'
-    ]);
+    {
 
-    if ($request->hasFile('img')) {
-        $valide['img'] = $request->file('img')->store('images', 'public');
+        $valide = $request->validate([
+            'title' => 'required|string|max:255',
+            'quantity' => 'required|integer|min:0',
+            'status' => 'required|string|max:255',
+            'prix' => 'required|integer|min:0',
+            'img' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg'
+        ]);
+
+        if ($request->hasFile('img')) {
+            $valide['img'] = $request->file('img')->store('images', 'public');
+        }
+
+
+        $produit->update($valide);
+
+        return redirect()->route('produits.index')
+            ->with('success', 'Produit mis à jour avec succès');
     }
-
-
-    $produit->update($valide);
-
-    return redirect()->route('produits.index')
-                     ->with('success', 'Produit mis à jour avec succès');
-}
 
 
     /**
@@ -105,8 +108,9 @@ class ProduitController extends Controller
 
     public function destroy(Produit $produit)
     {
-        $produit->delete();
-        return redirect("/produits");
-    }
 
+        $produit->delete();
+        return redirect()->route('produits.index')
+            ->with('success', 'Produit supprimer avec succès');
+    }
 }

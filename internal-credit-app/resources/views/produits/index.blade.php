@@ -4,485 +4,357 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestion des Produits</title>
+    <title>Administration | SupplyHub TechCorp</title>
+
+    <!-- Fonts & Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
     <style>
         :root {
-            --primary-color: #6366f1;
-            --secondary-color: #8b5cf6;
-            --success-color: #10b981;
-            --warning-color: #f59e0b;
-            --danger-color: #ef4444;
-            --dark-color: #1f2937;
-            --light-bg: #f9fafb;
-            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --card-shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --dark: #1e293b;
+            --slate-500: #64748b;
+            --bg-body: #f8fafc;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
         }
 
         body {
-            background: #f8fafc;
+            background-color: var(--bg-body);
             min-height: 100vh;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            padding: 2rem 0;
+            font-family: 'Inter', sans-serif;
+            padding-top: 100px;
+            padding-bottom: 50px;
+            margin: 0;
+            color: var(--dark);
         }
 
+        /* NAVBAR ADMIN */
+        .admin-navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 75px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            z-index: 1000;
+        }
+
+        .logo-admin {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 4px 10px rgba(79, 70, 229, 0.2);
+        }
+
+        .admin-badge {
+            background: #fff1f2;
+            color: #be123c;
+            font-size: 0.65rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            padding: 3px 10px;
+            border-radius: 20px;
+            border: 1px solid #fecaca;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-logout {
+            background: white;
+            color: var(--danger);
+            border: 1px solid #fee2e2;
+            padding: 8px 18px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-logout:hover {
+            background: var(--danger);
+            color: white;
+        }
+
+        /* CONTAINERS */
         .main-container {
-            max-width: 1400px;
+            max-width: 1300px;
             margin: 0 auto;
-            padding: 0 1rem;
+            padding: 0 20px;
         }
 
         .header-card {
             background: white;
-            border-radius: 20px;
-            padding: 2rem;
+            border-radius: 24px;
+            padding: 1.5rem 2rem;
             margin-bottom: 2rem;
-            box-shadow: var(--card-shadow);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
         }
 
-        .header-title {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .header-title i {
-            font-size: 2.5rem;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .header-title h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--dark-color);
-            margin: 0;
-        }
-
-        .btn-add {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            border: none;
-            padding: 0.8rem 2rem;
-            border-radius: 12px;
-            color: white;
-            font-weight: 600;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
-        }
-
-        .btn-add:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
-            color: white;
-        }
-
-        .alert-custom {
-            background: white;
-            border-radius: 15px;
-            padding: 1.2rem 1.5rem;
-            margin-bottom: 2rem;
-            border-left: 4px solid var(--success-color);
-            box-shadow: var(--card-shadow);
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            animation: slideIn 0.5s ease;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .alert-custom i {
-            color: var(--success-color);
-            font-size: 1.5rem;
-        }
-
+        /* GRID VIEW */
         .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 1.5rem;
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
         }
 
         .product-card {
             background: white;
-            border-radius: 20px;
+            border-radius: 24px;
             overflow: hidden;
-            box-shadow: var(--card-shadow);
+            border: 1px solid #e2e8f0;
             transition: all 0.3s ease;
-            position: relative;
         }
 
         .product-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--card-shadow-hover);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
         }
 
-        .product-image-container {
-            position: relative;
-            width: 100%;
-            height: 200px;
-            overflow: hidden;
-            background: var(--light-bg);
-        }
-
-        .product-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        .product-card:hover .product-image {
-            transform: scale(1.1);
-        }
-
-        .product-id-badge {
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .product-status-badge {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            background-color: #e16e0f;
-        }
-
-        .status-disponible {
-            background: rgba(16, 185, 129, 0.9);
-            color: white;
-        }
-
-        .status-rupture {
-            background: rgba(239, 68, 68, 0.9);
-            color: white;
-        }
-
-        .product-content {
-            padding: 1.2rem;
-        }
-
-        .product-title {
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: var(--dark-color);
-            margin-bottom: 0.8rem;
-            line-height: 1.3;
-        }
-
-        .product-info {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .info-item {
-            background: white;
-            border: 2px solid #e5e7eb;
-            border-radius: 10px;
-            padding: 0.8rem;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .info-item:hover {
-            border-color: var(--primary-color);
-            transform: translateY(-2px);
-        }
-
-        .info-label {
-            font-size: 0.7rem;
-            color: #9ca3af;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 0.4rem;
-            font-weight: 600;
-        }
-
-        .info-value {
-            font-size: 1.25rem;
-            font-weight: 800;
-            color: var(--dark-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.4rem;
-        }
-
-        .info-value i {
-            font-size: 1rem;
-            color: var(--primary-color);
-        }
-
-        .price-tag {
-            color: var(--success-color);
-            font-size: 1.4rem;
-        }
-
-        .product-actions {
-            display: flex;
-            gap: 0.8rem;
-        }
-
-        .btn-action {
-            flex: 1;
-            padding: 0.7rem;
-            border-radius: 10px;
-            border: none;
-            font-weight: 600;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-        }
-
-        .btn-edit {
-            background: linear-gradient(135deg, #f59e0b, #f97316);
-            color: white;
-        }
-
-        .btn-edit:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
-            color: white;
-        }
-
-        .btn-delete {
-            background: linear-gradient(135deg, #ef4444, #dc2626);
-            color: white;
-        }
-
-        .btn-delete:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
-            color: white;
-        }
-
-        .empty-state {
-            background: white;
-            border-radius: 20px;
-            padding: 4rem 2rem;
-            text-align: center;
-            box-shadow: var(--card-shadow);
-        }
-
-        .empty-state i {
-            font-size: 5rem;
-            color: #d1d5db;
-            margin-bottom: 1rem;
-        }
-
-        .empty-state h3 {
-            color: var(--dark-color);
-            margin-bottom: 0.5rem;
-        }
-
-        .empty-state p {
-            color: #6b7280;
-        }
-
-        @media (max-width: 768px) {
-            .products-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .header-card {
-                text-align: center;
-                justify-content: center;
-            }
-
-            .header-title {
-                flex-direction: column;
-            }
-        }
-
-        /* Table View Alternative */
+        /* TABLE VIEW */
         .table-container {
             background: white;
-            border-radius: 20px;
+            border-radius: 24px;
             padding: 2rem;
-            box-shadow: var(--card-shadow);
-            overflow-x: auto;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
         }
 
         .modern-table {
             width: 100%;
             border-collapse: separate;
-            border-spacing: 0 0.5rem;
+            border-spacing: 0 12px;
         }
 
         .modern-table thead th {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            padding: 1rem;
-            text-align: left;
+            color: var(--slate-500);
             font-weight: 600;
             text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 0.5px;
-        }
-
-        .modern-table thead th:first-child {
-            border-radius: 10px 0 0 10px;
-        }
-
-        .modern-table thead th:last-child {
-            border-radius: 0 10px 10px 0;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            padding: 0 15px;
+            border: none;
         }
 
         .modern-table tbody tr {
             background: white;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
         }
 
-        .modern-table tbody tr:hover {
-            transform: scale(1.02);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .modern-table tbody td {
-            padding: 1rem;
+        .modern-table td {
+            padding: 15px;
             vertical-align: middle;
+            border-top: 1px solid #f1f5f9;
+            border-bottom: 1px solid #f1f5f9;
         }
 
-        .modern-table tbody td:first-child {
-            border-radius: 10px 0 0 10px;
+        .modern-table td:first-child {
+            border-left: 1px solid #f1f5f9;
+            border-radius: 12px 0 0 12px;
         }
 
-        .modern-table tbody td:last-child {
-            border-radius: 0 10px 10px 0;
+        .modern-table td:last-child {
+            border-right: 1px solid #f1f5f9;
+            border-radius: 0 12px 12px 0;
         }
 
         .table-img {
-            width: 80px;
-            height: 80px;
+            width: 45px;
+            height: 45px;
             object-fit: cover;
-            border-radius: 10px;
+            border-radius: 8px;
+            margin-right: 12px;
+        }
+
+        .status-dot {
+            height: 8px;
+            width: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 6px;
+        }
+
+        .btn-circle {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            margin: 0 2px;
+            font-size: 0.8rem;
+        }
+
+        .badge-glass {
+            padding: 6px 14px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.4);
+            /* Transparent black */
+            backdrop-filter: blur(10px);
+            /* The blur effect */
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            letter-spacing: 0.5px;
+            z-index: 10;
         }
     </style>
 </head>
 
 <body>
-    <div class="main-container">
-        <!-- Header -->
-        <div class="header-card">
-            <div class="header-title">
-                <i class="fas fa-box-open"></i>
-                <h1>Gestion des Produits</h1>
+
+    <!-- NAVBAR ADMIN -->
+    <nav class="admin-navbar">
+        <div class="nav-left d-flex align-items-center gap-3">
+            <div class="logo-admin"><i class="fas fa-shield-alt"></i></div>
+            <div class="d-flex flex-column">
+                <span class="fw-bold">TechCorp SupplyHub</span>
+                <div><span class="admin-badge">Admin Panel</span></div>
             </div>
-            <a href="{{ route('produits.create') }}" class="btn-add">
-                <i class="fas fa-plus"></i>
-                Ajouter un produit
+        </div>
+
+        <div class="nav-right">
+            <div class="admin-profile d-none d-md-flex align-items-center bg-slate-100 p-2 rounded-3 px-3 me-3">
+                <span class="small fw-bold text-slate-600">{{ Auth::user()->name }}</span>
+            </div>
+            <form method="POST" action="{{ route('logout') }}" class="d-inline">
+                @csrf
+                <button type="submit" class="btn-logout">Quitter</button>
+            </form>
+        </div>
+    </nav>
+
+    <div class="main-container">
+
+        <!-- HEADER -->
+        <div class="header-card">
+            <div>
+                <h1 class="h4 fw-bold mb-0">Inventaire Global</h1>
+                <p class="text-muted small mb-0">Gestion des stocks et des ressources</p>
+            </div>
+            <a href="{{ route('produits.create') }}" class="btn btn-primary px-4 py-2 rounded-3 fw-bold shadow-sm">
+                <i class="fas fa-plus-circle me-2"></i>Nouveau Produit
             </a>
         </div>
 
-        <!-- Success Alert -->
-        @if(session('success'))
-        <div class="alert-custom">
-            <i class="fas fa-check-circle"></i>
-            <span>{{ session('success') }}</span>
-        </div>
+        <!-- SUCCESS ALERT -->
+        @if (session('success'))
+            <div
+                class="alert bg-emerald-50 border border-emerald-100 text-emerald-700 rounded-4 p-3 d-flex align-items-center mb-4">
+                <i class="fas fa-check-circle me-3"></i>
+                <span class="fw-bold">{{ session('success') }}</span>
+            </div>
         @endif
 
-        <!-- Products Grid -->
-        @if(count($produits) > 0)
+        <!-- 1. VUE EN GRILLE -->
+        <div class="d-flex align-items-center mb-4">
+            <h5 class="fw-bold mb-0">Aperçu Visuel</h5>
+            <span class="ms-3 badge bg-slate-200 text-slate-700 rounded-pill">{{ count($produits) }} articles</span>
+        </div>
+
         <div class="products-grid">
-            @foreach($produits as $produit)
-            <div class="product-card">
-                <div class="product-image-container">
-                    <img src="{{ asset('storage/' . $produit->img) }}" alt="{{ $produit->title }}" class="product-image">
-                    <div class="product-status-badge">
-                        <i class="">{{$produit->statuts}}</i>
+            @foreach ($produits as $produit)
+                <div class="product-card shadow-sm">
+                    <div class="position-relative" style="height: 180px;">
+                        <img src="{{ asset('storage/' . $produit->img) }}" class="w-100 h-100"
+                            style="object-fit: cover;">
+                        <span class="position-absolute top-0 end-0 m-3 badge-glass">
+                            {{ $produit->status }}
+                        </span>
                     </div>
-                </div>
-                <div class="product-content">
-                    <h3 class="product-title">{{ $produit->title }}</h3>
-                    <div class="product-info">
-                        <div class="info-item">
-                            <div class="info-label">Quantité</div>
-                            <div class="info-value">
-                                <i class="fas fa-box"></i> {{ $produit->quantity }}
-                            </div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">Prix</div>
-                            <div class="info-value price-tag">
-                                {{ $produit->prix }} €
-                            </div>
+                    <div class="p-3">
+                        <h6 class="fw-bold mb-1">{{ $produit->title }}</h6>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <span class="text-indigo-600 fw-extrabold">{{ number_format($produit->prix, 0) }}
+                                T</span>
+                            <span class="small text-muted fw-medium">Stock: {{ $produit->quantity }}</span>
                         </div>
                     </div>
-                    <div class="product-actions">
-                        <a href="{{ route('produits.edit', $produit->id) }}" class="btn btn-warning">
-                            <i class="fas fa-edit"></i>
-                            Modifier
-                        </a>
-
-
-                        <form action="{{route('produits.destroy' , $produit->id)}}" method="POST">
-                            @csrf
-                            @method("delete")
-                            <button type="submit" class="btn-action btn-delete">
-                                <i class="fas fa-trash"></i>
-                                Supprimer
-                            </button>
-                        </form>
-
-                    </div>
                 </div>
-            </div>
             @endforeach
         </div>
-        @else
-        <div class="empty-state">
-            <i class="fas fa-inbox"></i>
-            <h3>Aucun produit disponible</h3>
-            <p>Commencez par ajouter votre premier produit</p>
+
+        <!-- 2. VUE EN LISTE -->
+        <h5 class="fw-bold mb-4 mt-5">Récapitulatif Détaillé</h5>
+        <div class="table-container">
+            <table class="modern-table">
+                <thead>
+                    <tr>
+                        <th>Produit</th>
+                        <th>Référence</th>
+                        <th>Stock</th>
+                        <th>Prix</th>
+                        <th>État</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($produits as $produit)
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <img src="{{ asset('storage/' . $produit->img) }}" class="table-img">
+                                    <span class="fw-bold">{{ $produit->title }}</span>
+                                </div>
+                            </td>
+                            <td><code class="small text-indigo-600">#PRD-{{ $produit->id }}</code></td>
+                            <td>
+                                <span class="fw-bold {{ $produit->quantity < 5 ? 'text-danger' : '' }}">
+                                    {{ $produit->quantity }} unités
+                                </span>
+                            </td>
+                            <td class="fw-bold text-indigo-600">{{ number_format($produit->prix, 0) }} T</td>
+                            <td>
+                                <span
+                                    class="status-dot {{ $produit->status === 'disponible' ? 'bg-success' : 'bg-danger' }}"></span>
+                                <small class="fw-bold text-uppercase"
+                                    style="font-size: 0.7rem;">{{ $produit->status }}</small>
+                            </td>
+                            <td class="text-end">
+                                <a href="{{ route('produits.edit', $produit) }}"
+                                    class="btn-circle bg-warning shadow-sm" title="Modifier"><i
+                                        class="fas fa-edit"></i></a>
+                                <form action="{{ route('produits.destroy', $produit) }}" method="POST"
+                                    style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <button type="submit" class="btn-circle bg-danger shadow-sm" title="Supprimer"
+                                        onclick="return confirm('Are you sure ?')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
-        @endif
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
