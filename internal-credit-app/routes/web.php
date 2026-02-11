@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified'])->name('home');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -52,4 +52,5 @@ Route::get("notifications/{id}/{managerResponse}", [MailController::class, 'noti
 //produitRoutes
 Route::get("create", [ProduitController::class, 'create'])->name('produits.create');
 Route::post("store", [ProduitController::class, 'store'])->name('produits.store');
+Route::resource('produits', ProduitController::class);
 //produitRoutesEnd

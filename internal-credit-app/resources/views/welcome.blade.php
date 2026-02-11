@@ -47,22 +47,35 @@
                 </div>
 
                 <div class="flex items-center gap-4">
-                    @if (Route::has('login'))
-                        @auth
-                            <a href="{{ url('/dashboard') }}"
-                                class="text-sm font-semibold text-slate-600 hover:text-indigo-600 transition">Mon Espace</a>
-                        @else
-                            <a href="{{ route('login') }}"
-                                class="text-sm font-semibold text-slate-600 hover:text-indigo-600 transition">Connexion</a>
-                            @if (Route::has('register'))
-                                <a href="{{ route('register') }}"
-                                    class="bg-slate-900 text-white px-5 py-2.5 rounded-lg text-sm font-bold hover:bg-slate-800 transition shadow-md">
-                                    Rejoindre la boutique
-                                </a>
-                            @endif
-                        @endauth
-                    @endif
+                    @auth
+                        @php
+                            $monEspaceRoute = match (auth()->user()->role_id) {
+                                3 => 'list.produits',
+                                2 => 'manager.commandes.index',
+                                1 => 'produits.index',
+                                default => 'home',
+                            };
+                        @endphp
+
+                        <a href="{{ route($monEspaceRoute) }}"
+                            class="text-sm font-semibold text-slate-600 hover:text-indigo-600 transition">
+                            Mon Espace
+                        </a>
+                    @else
+                        <a href="{{ route('login') }}"
+                            class="text-sm font-semibold text-slate-600 hover:text-indigo-600 transition">
+                            Connexion
+                        </a>
+
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}"
+                                class="bg-slate-900 text-white px-5 py-2.5 rounded-lg text-sm font-bold hover:bg-slate-800 transition shadow-md">
+                                Rejoindre la boutique
+                            </a>
+                        @endif
+                    @endauth
                 </div>
+
             </div>
         </div>
     </nav>

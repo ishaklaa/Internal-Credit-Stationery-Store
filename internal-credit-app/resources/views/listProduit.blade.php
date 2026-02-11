@@ -260,6 +260,22 @@
             box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
             margin-top: 20px;
         }
+
+        .badge-glass {
+            padding: 6px 14px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.4);
+            /* Transparent black */
+            backdrop-filter: blur(10px);
+            /* The blur effect */
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            letter-spacing: 0.5px;
+            z-index: 10;
+        }
     </style>
 </head>
 
@@ -325,6 +341,9 @@
                         <!-- Image générique propre -->
                         <img src="https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?q=80&w=400&auto=format&fit=crop"
                             alt="Produit" class="product-image">
+                        <span class="position-absolute top-0 end-0 m-3 badge-glass">
+                            {{ $product->status }}
+                        </span>
                         <h3>{{ $product->title }}</h3>
                         <span class="price-tag">{{ number_format($product->prix, 0) }} Tokens</span>
 

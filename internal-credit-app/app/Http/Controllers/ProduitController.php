@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Produit;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -51,7 +52,8 @@ class ProduitController extends Controller
         }
 
         Produit::create($incomingFields);
-        // dd();
+
+
         return redirect()->route('produits.index')
             ->with('success', 'Produit créé avec succès!');
     }
@@ -64,15 +66,51 @@ class ProduitController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id) {}
+
+    public function edit(Produit $produit)
+    {
+        return view("produits.edit", compact('produit'));
+    }
+
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id) {}
+
+
+
+    public function update(Request $request, Produit $produit)
+    {
+
+        $valide = $request->validate([
+            'title' => 'required|string|max:255',
+            'quantity' => 'required|integer|min:0',
+            'status' => 'required|string|max:255',
+            'prix' => 'required|integer|min:0',
+            'img' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg'
+        ]);
+
+        if ($request->hasFile('img')) {
+            $valide['img'] = $request->file('img')->store('images', 'public');
+        }
+
+
+        $produit->update($valide);
+
+        return redirect()->route('produits.index')
+            ->with('success', 'Produit mis à jour avec succès');
+    }
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id) {}
+
+    public function destroy(Produit $produit)
+    {
+
+        $produit->delete();
+        return redirect()->route('produits.index')
+            ->with('success', 'Produit supprimer avec succès');
+    }
 }
